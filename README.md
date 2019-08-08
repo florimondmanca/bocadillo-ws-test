@@ -12,7 +12,7 @@ uvicorn app:app --log-level=debug
 heroku local
 ```
 
-Two clients are available:
+Three clients are available:
 
 - `asyncio` + `websockets`:
 
@@ -40,3 +40,5 @@ Two clients are available:
   ```
 
   - Messages are read _asynchronously_ from the file, so the WebSocket client can send and receive pings and pongs as designed, and the connection stays open.
+
+- A browser-based JavaScript client: open your browser at http://localhost:8000.

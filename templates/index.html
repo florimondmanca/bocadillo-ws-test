@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Test</title>
+  </head>
+  <body>
+    Open your console!
+  </body>
+</html>
+
+<script>
+  const ws = new WebSocket("ws://localhost:8000/echo");
+
+  ws.onopen = event => console.log("Connected:", event);
+  ws.onclose = event => console.log("Connection lost:", event);
+  ws.onmessage = event => console.log("Received:", JSON.parse(event.data));
+
+  setInterval(() => {
+    const message = { text: Math.random() > 0.5 ? "ping" : "pong" };
+    ws.send(JSON.stringify(message));
+    console.log("Sent: ", message);
+  }, 1000);
+</script>
