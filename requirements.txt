@@ -1,2 +1,5 @@
 bocadillo
 gunicorn
+
+trio
+trio-websocket
