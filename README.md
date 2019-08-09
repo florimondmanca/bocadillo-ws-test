@@ -12,7 +12,7 @@ uvicorn app:app --log-level=debug
 heroku local
 ```
 
-Three clients are available:
+the following clients are available:
 
 - `asyncio` + `websockets`:
 
@@ -20,6 +20,16 @@ Three clients are available:
 
   ```
   python -m clients.asyncio ws://localhost:8000/echo
+  ```
+
+  - To send messages, type them in the REPL and hit `Enter`.
+
+- `asyncio` + `websockets` + running `input()` in the threadpool:
+
+  - Start the client:
+
+  ```
+  python -m clients.asyncio_threadpool ws://localhost:8000/echo
   ```
 
   - To send messages, type them in the REPL and hit `Enter`.
@@ -47,4 +57,4 @@ Three clients are available:
 
 The client code in the `asyncio` + `websockets` client is using `input()` to get user input. This is a **blocking** call, which results in other tasks running on the event loop from running. In particular, this prevents the client from exchanging `ping` and `pong` messages with the server. After a while, either the server or the client time out waiting for a `pong`, and the connection is shut down.
 
-Key learning point here: **don't block the event loop**. Make sure all I/O is asynchronous. This isn't always easy, especially when reading from files or stdin. Alternatives to `asyncio` such as `trio` have more tools built-in to help you achieve full-async I/O handling.
+Key learning point: **don't block the event loop**. Make sure all I/O is asynchronous. This isn't always easy, especially when reading from files or stdin. Alternatives to `asyncio` such as `trio` have more tools built-in to help you achieve full-async I/O handling.
